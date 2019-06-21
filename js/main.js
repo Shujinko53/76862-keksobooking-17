@@ -6,12 +6,14 @@ var mapElement = document.querySelector('.map__pins');
 var x = [0, mapElement.offsetWidth];
 var y = [130, 630];
 var map = document.querySelector('.map');
-var mapPoint = mapElement.querySelector('.map__pin');
+var mapPoint = mapElement.querySelector('.map__pin--main');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-
-map.classList.remove('map--faded');
+var form = document.querySelector('.ad-form');
+var formFields = form.querySelectorAll('fieldset');
+var filters = document.querySelector('.map__filters');
+var filtersSelects = filters.querySelectorAll('select');
 
 var createPins = function(count) {
   var mas = [];
@@ -65,3 +67,21 @@ var getRandomNumber = function(coordinate) {
 
 var pins = createPins(8);
 renderPins(pins);
+
+mapPoint.addEventListener('click', function( ) {
+
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+
+  for(var i = 0; i < formFields.length; i++) {
+    formFields[i].disabled = false;
+  };
+
+  for(var i = 0; i < filtersSelects.length; i++) {
+    filtersSelects[i].disabled = false;
+  };
+});
+
+mapPoint.addEventListener('mouseup', function() {
+
+});
