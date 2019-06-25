@@ -69,19 +69,8 @@ var getRandomNumber = function(coordinate) {
 var pins = createPins(8);
 renderPins(pins);
 
-mapPoint.addEventListener('click', function() {
 
-  map.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled');
-
-  for(var i = 0; i < formFields.length; i++) {
-    formFields[i].disabled = false;
-  };
-
-  for(var i = 0; i < filtersSelects.length; i++) {
-    filtersSelects[i].disabled = false;
-  };
-});
+// ------------ перемещение маркера ---------------
 
 mapPoint.addEventListener('mousedown', function(evt) {
   evt.preventDefault();
@@ -104,7 +93,9 @@ mapPoint.addEventListener('mousedown', function(evt) {
       y: moveEvt.clientY
     };
 
-    mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
+    if (startCoords.y > 130 && startCoords.y < 630) {
+      mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
+    }
     mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
 
     document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
@@ -113,6 +104,17 @@ mapPoint.addEventListener('mousedown', function(evt) {
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
 
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+
+    for(var i = 0; i < formFields.length; i++) {
+      formFields[i].disabled = false;
+    };
+
+    for(var i = 0; i < filtersSelects.length; i++) {
+      filtersSelects[i].disabled = false;
+    };
+
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
@@ -120,6 +122,9 @@ mapPoint.addEventListener('mousedown', function(evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
+
+
+// ---------------- автозаполнение полей ---------------
 
 var autoFill = function () {
   var x = document.getElementById('type').value;
