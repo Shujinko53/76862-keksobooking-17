@@ -6,12 +6,15 @@ var mapElement = document.querySelector('.map__pins');
 var x = [0, mapElement.offsetWidth];
 var y = [130, 630];
 var map = document.querySelector('.map');
-var mapPoint = mapElement.querySelector('.map__pin');
+var mapPoint = mapElement.querySelector('.map__pin--main');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-
-map.classList.remove('map--faded');
+var form = document.querySelector('.ad-form');
+var formFields = form.querySelectorAll('fieldset');
+var filters = document.querySelector('.map__filters');
+var filtersSelects = filters.querySelectorAll('select');
+var inputAddress = document.querySelector('#address');
 
 var createPins = function(count) {
   var mas = [];
@@ -65,3 +68,55 @@ var getRandomNumber = function(coordinate) {
 
 var pins = createPins(8);
 renderPins(pins);
+
+mapPoint.addEventListener('click', function() {
+
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+
+  for(var i = 0; i < formFields.length; i++) {
+    formFields[i].disabled = false;
+  };
+
+  for(var i = 0; i < filtersSelects.length; i++) {
+    filtersSelects[i].disabled = false;
+  };
+});
+
+mapPoint.addEventListener('mousedown', function(evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  }
+
+  var onMouseMove = function(moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
+    mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
+
+    document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
