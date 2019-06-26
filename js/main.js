@@ -96,7 +96,9 @@ mapPoint.addEventListener('mousedown', function(evt) {
     if (startCoords.y > 130 && startCoords.y < 630) {
       mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
     }
+    if (startCoords.x > 350 && startCoords.x < 1540) {
     mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
+  }
 
     document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
   };
