@@ -15,6 +15,7 @@ var formFields = form.querySelectorAll('fieldset');
 var filters = document.querySelector('.map__filters');
 var filtersSelects = filters.querySelectorAll('select');
 var inputAddress = document.querySelector('#address');
+var formReset = document.querySelector('.ad-form__reset');
 
 var createPins = function(count) {
   var mas = [];
@@ -96,9 +97,10 @@ mapPoint.addEventListener('mousedown', function(evt) {
     if (startCoords.y > 130 && startCoords.y < 630) {
       mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
     }
-    if (startCoords.x > 350 && startCoords.x < 1540) {
-    mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
-  }
+
+    if (startCoords.x > 350 && startCoords.x < 1550) {
+      mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
+    };
 
     document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
   };
@@ -159,3 +161,8 @@ var autoFillTime = function () {
       timeOut.value = '14:00';
     }
 };
+
+formReset.addEventListener('click', function() {
+  map.classList.add('map--faded');
+  form.classList.add('ad-form--disabled');
+});
