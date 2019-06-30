@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
 
 var createPins = function(count) {
@@ -5,14 +7,14 @@ var createPins = function(count) {
 
   for (var i = 0; i < 8; i++) {
     var item = {
-      author: avatars[getRandomNumber([0, avatars.length - 1])],
+      author: window.set.avatars[getRandomNumber([0, window.set.avatars.length - 1])],
       offer: {
         title: 'Заголовок объявления',
-        type: types[getRandomNumber([0, types.length - 1])]
+        type: window.set.types[getRandomNumber([0, window.set.types.length - 1])]
       },
       location: {
-        x: getRandomNumber(x),
-        y: getRandomNumber(y)
+        x: getRandomNumber(window.set.x),
+        y: getRandomNumber(window.set.y)
       }
     }
 
@@ -23,9 +25,9 @@ var createPins = function(count) {
 };
 
 var createElementPin = function(newElement) {
-  var pin = pinTemplate.cloneNode(true);
-  pin.style.left = newElement.location.x - PIN_WIDTH / 2 + 'px';
-  pin.style.top = newElement.location.y - PIN_HEIGHT + 'px';
+  var pin = window.set.pinTemplate.cloneNode(true);
+  pin.style.left = newElement.location.x - window.set.PIN_WIDTH / 2 + 'px';
+  pin.style.top = newElement.location.y - window.set.PIN_HEIGHT + 'px';
   pin.querySelector('img').src = newElement.author;
   pin.querySelector('img').alt = newElement.offer.title;
 
@@ -41,7 +43,7 @@ for (var i = 0; i < pins.length; i++) {
   fragment.appendChild(newElement);
 };
 
-mapElement.appendChild(fragment);
+window.set.mapElement.appendChild(fragment);
 };
 
 var getRandomNumber = function(coordinate) {
