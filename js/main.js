@@ -1,3 +1,4 @@
+'use strict';
 var avatars = ['img/avatars/user01.png','img/avatars/user02.png','img/avatars/user03.png',
   'img/avatars/user04.png','img/avatars/user05.png','img/avatars/user06.png','img/avatars/user07.png',
   'img/avatars/user08.png'];
@@ -16,6 +17,10 @@ var filters = document.querySelector('.map__filters');
 var filtersSelects = filters.querySelectorAll('select');
 var inputAddress = document.querySelector('#address');
 var formReset = document.querySelector('.ad-form__reset');
+
+  window.set = {
+    formReset: formReset
+  }
 
 var createPins = function(count) {
   var mas = [];
@@ -131,38 +136,3 @@ mapPoint.addEventListener('mousedown', function(evt) {
 
 
 // ---------------- автозаполнение полей ---------------
-
-var autoFill = function () {
-  var x = document.getElementById('type').value;
-  var price = document.getElementById('price');
-    if (x == 'bungalo') {
-      price.min = '0';
-      price.placeholder = 'от 0';
-    } else if (x == 'flat') {
-      price.min = '1000';
-      price.placeholder = 'от 1000';
-    } else if (x == 'house') {
-      price.min = '5000';
-      price.placeholder = 'от 5000';
-    } else if (x == 'palace') {
-      price.min = '10000';
-      price.placeholder = 'от 10000';
-    }
-};
-
-var autoFillTime = function () {
-  var timeIn = document.getElementById('timein').value;
-  var timeOut = document.getElementById('timeout');
-    if (timeIn == '12:00') {
-      timeOut.value = '12:00';
-    } else if (timeIn == '13:00') {
-      timeOut.value = '13:00';
-    } else if (timeIn == '14:00') {
-      timeOut.value = '14:00';
-    }
-};
-
-formReset.addEventListener('click', function() {
-  map.classList.add('map--faded');
-  form.classList.add('ad-form--disabled');
-});
