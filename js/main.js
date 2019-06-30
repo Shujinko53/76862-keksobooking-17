@@ -1,3 +1,4 @@
+'use strict';
 var avatars = ['img/avatars/user01.png','img/avatars/user02.png','img/avatars/user03.png',
   'img/avatars/user04.png','img/avatars/user05.png','img/avatars/user06.png','img/avatars/user07.png',
   'img/avatars/user08.png'];
@@ -15,6 +16,11 @@ var formFields = form.querySelectorAll('fieldset');
 var filters = document.querySelector('.map__filters');
 var filtersSelects = filters.querySelectorAll('select');
 var inputAddress = document.querySelector('#address');
+var formReset = document.querySelector('.ad-form__reset');
+
+  window.set = {
+    formReset: formReset
+  }
 
 var createPins = function(count) {
   var mas = [];
@@ -69,19 +75,8 @@ var getRandomNumber = function(coordinate) {
 var pins = createPins(8);
 renderPins(pins);
 
-mapPoint.addEventListener('click', function() {
 
-  map.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled');
-
-  for(var i = 0; i < formFields.length; i++) {
-    formFields[i].disabled = false;
-  };
-
-  for(var i = 0; i < filtersSelects.length; i++) {
-    filtersSelects[i].disabled = false;
-  };
-});
+// ------------ перемещение маркера ---------------
 
 mapPoint.addEventListener('mousedown', function(evt) {
   evt.preventDefault();
@@ -104,14 +99,32 @@ mapPoint.addEventListener('mousedown', function(evt) {
       y: moveEvt.clientY
     };
 
-    mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
-    mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
+    if (startCoords.y > 130 && startCoords.y < 630) {
+      mapPoint.style.top = (mapPoint.offsetTop - shift.y) + 'px';
+    }
+
+    if (startCoords.x > 350 && startCoords.x < 1550) {
+      mapPoint.style.left = (mapPoint.offsetLeft - shift.x) + 'px';
+    };
 
     document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
   };
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
+
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+
+    for(var i = 0; i < formFields.length; i++) {
+      formFields[i].disabled = false;
+    };
+
+    for(var i = 0; i < filtersSelects.length; i++) {
+      filtersSelects[i].disabled = false;
+    };
+
+    document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
@@ -121,32 +134,5 @@ mapPoint.addEventListener('mousedown', function(evt) {
   document.addEventListener('mouseup', onMouseUp);
 });
 
-var autoFill = function () {
-  var x = document.getElementById('type').value;
-  var price = document.getElementById('price');
-    if (x == 'bungalo') {
-      price.min = '0';
-      price.placeholder = 'от 0';
-    } else if (x == 'flat') {
-      price.min = '1000';
-      price.placeholder = 'от 1000';
-    } else if (x == 'house') {
-      price.min = '5000';
-      price.placeholder = 'от 5000';
-    } else if (x == 'palace') {
-      price.min = '10000';
-      price.placeholder = 'от 10000';
-    }
-};
 
-var autoFillTime = function () {
-  var timeIn = document.getElementById('timein').value;
-  var timeOut = document.getElementById('timeout');
-    if (timeIn == '12:00') {
-      timeOut.value = '12:00';
-    } else if (timeIn == '13:00') {
-      timeOut.value = '13:00';
-    } else if (timeIn == '14:00') {
-      timeOut.value = '14:00';
-    }
-};
+// ---------------- автозаполнение полей ---------------
