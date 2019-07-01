@@ -1,15 +1,15 @@
 'use strict';
 (function () {
 
-window.set.mapPoint.addEventListener('mousedown', function(evt) {
+window.set.mapPoint.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
-  }
+  };
 
-  var onMouseMove = function(moveEvt) {
+  var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
     var shift = {
@@ -38,13 +38,13 @@ window.set.mapPoint.addEventListener('mousedown', function(evt) {
     window.set.map.classList.remove('map--faded');
     window.set.form.classList.remove('ad-form--disabled');
 
-    for(var i = 0; i < window.set.formFields.length; i++) {
+    for (var i = 0; i < window.set.formFields.length; i++) {
       window.set.formFields[i].disabled = false;
-    };
+    }
 
-    for(var i = 0; i < window.set.filtersSelects.length; i++) {
-      window.set.filtersSelects[i].disabled = false;
-    };
+    for (var j = 0; j < window.set.filtersSelects.length; j++) {
+      window.set.filtersSelects[j].disabled = false;
+    }
 
     document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
 
