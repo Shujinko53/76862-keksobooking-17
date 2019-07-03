@@ -38,6 +38,14 @@
       window.set.map.classList.remove('map--faded');
       window.set.form.classList.remove('ad-form--disabled');
 
+      var onLoad = function (data) {
+        window.pin.renderPins(data);
+      };
+
+      var onError = function () {};
+
+      window.backend.load(onLoad, onError);
+
       for (var i = 0; i < window.set.formFields.length; i++) {
         window.set.formFields[i].disabled = false;
       }
