@@ -2,8 +2,8 @@
 
 (function () {
 
-  var avatars = ['img/avatars/user01.png','img/avatars/user02.png','img/avatars/user03.png',
-    'img/avatars/user04.png','img/avatars/user05.png','img/avatars/user06.png','img/avatars/user07.png',
+  var avatars = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
+    'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
     'img/avatars/user08.png'];
   var types = ['palace', 'flat', 'house', 'bungalo'];
   var mapElement = document.querySelector('.map__pins');
@@ -20,21 +20,21 @@
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
 
-    window.set = {
-      formReset: formReset,
-      mapPoint: mapPoint,
-      map: map,
-      mapElement: mapElement,
-      form: form,
-      filtersSelects: filtersSelects,
-      pinTemplate: pinTemplate,
-      avatars: avatars,
-      types: types,
-      formFields: formFields,
-      PIN_WIDTH: PIN_WIDTH,
-      PIN_HEIGHT: PIN_HEIGHT,
-      x: x,
-      y: y
-    };
+  window.set = {
+    formReset: formReset,
+    mapPoint: mapPoint,
+    map: map,
+    mapElement: mapElement,
+    form: form,
+    filtersSelects: filtersSelects,
+    pinTemplate: pinTemplate,
+    avatars: avatars,
+    types: types,
+    formFields: formFields,
+    PIN_WIDTH: PIN_WIDTH,
+    PIN_HEIGHT: PIN_HEIGHT,
+    x: x,
+    y: y
+  };
 
 })();

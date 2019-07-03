@@ -3,8 +3,8 @@
 (function () {
 
   window.autoFill = function () {
-  var x = document.getElementById('type').value;
-  var price = document.getElementById('price');
+    var x = document.getElementById('type').value;
+    var price = document.getElementById('price');
     if (x === 'bungalo') {
       price.min = '0';
       price.placeholder = 'от 0';
@@ -21,16 +21,16 @@
   };
 
   window.autoFillTime = function () {
-  var timeIn = document.getElementById('timein').value;
-  var timeOut = document.getElementById('timeout');
+    var timeIn = document.getElementById('timein').value;
+    var timeOut = document.getElementById('timeout');
 
-  if (timeIn === '12:00') {
-    timeOut.value = '12:00';
-  } else if (timeIn === '13:00') {
-    timeOut.value = '13:00';
-  } else if (timeIn === '14:00') {
-    timeOut.value = '14:00';
-  }
+    if (timeIn === '12:00') {
+      timeOut.value = '12:00';
+    } else if (timeIn === '13:00') {
+      timeOut.value = '13:00';
+    } else if (timeIn === '14:00') {
+      timeOut.value = '14:00';
+    }
   };
 
   window.set.formReset.addEventListener('click', function () {
