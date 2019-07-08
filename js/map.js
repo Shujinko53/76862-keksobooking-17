@@ -1,6 +1,15 @@
 'use strict';
 (function () {
 
+  var pins;
+
+  var onLoad = function (data) {
+    pins = data;
+    window.pin.renderPins(data);
+  };
+
+  var onError = function () {};
+
   window.set.mapPoint.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -38,12 +47,6 @@
       window.set.map.classList.remove('map--faded');
       window.set.form.classList.remove('ad-form--disabled');
 
-      var onLoad = function (data) {
-        window.pin.renderPins(data);
-      };
-
-      var onError = function () {};
-
       window.backend.load(onLoad, onError);
 
       for (var i = 0; i < window.set.formFields.length; i++) {
@@ -63,4 +66,18 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.set.housingFilter.addEventListener('change', function () {
+    var filterValue = window.set.housingFilter.value;
+
+    var filterPins = pins.filter(function (item) {
+      if (item.offer.type === filterValue) {
+        return item;
+      } else {
+        return false;
+      }
+    });
+    window.pin.renderPins(filterPins);
+  });
+
 })();
