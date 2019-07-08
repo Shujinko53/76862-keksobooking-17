@@ -79,5 +79,5 @@
     });
     window.pin.renderPins(filterPins);
   });
-
+// ---
 })();
