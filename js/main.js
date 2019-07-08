@@ -19,6 +19,7 @@
   var filters = document.querySelector('.map__filters');
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
+  var housingFilter = document.getElementById('housing-type');
 
   window.set = {
     formReset: formReset,
@@ -34,7 +35,8 @@
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT: PIN_HEIGHT,
     x: x,
-    y: y
+    y: y,
+    housingFilter: housingFilter
   };
 
 })();
