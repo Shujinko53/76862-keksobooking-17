@@ -20,6 +20,7 @@
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
   var housingFilter = document.getElementById('housing-type');
+  var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
 
   window.set = {
     formReset: formReset,
@@ -36,7 +37,8 @@
     PIN_HEIGHT: PIN_HEIGHT,
     x: x,
     y: y,
-    housingFilter: housingFilter
+    housingFilter: housingFilter,
+    cardTemplate: cardTemplate
   };
 
 })();
