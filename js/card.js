@@ -4,6 +4,7 @@
 
   var createElementCard = function (newElement) {
     var card = window.set.cardTemplate.cloneNode(true);
+
     card.querySelector('img').src = newElement.autor.avatar;
     card.querySelector('.popup__title').textContent = newElement.offer.title;
     card.querySelector('popup__text--address').textContent = newElement.offer.address;
@@ -13,26 +14,13 @@
       + ' комнаты для' + newElement.offer.guests + ' гостей.';
     card.querySelector('.popup__text--time').textContent = 'Заезд после '
       + newElement.offer.checkin + ', выезд до ' + newElement.offer.checkout;
-    // card.querySelector('.popup__photos').content.querySelector('img').src = ;
+    card.querySelector('.popup__photos').content.querySelector('img').src = newElement.offer.photo;
 
     return card;
-  }
-
-
-  var renderCards = function (cards) {
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < cards.length; i++) {
-      var newElement = createElementCard(cards[i]);
-
-      fragment.appendChild(newElement);
-    }
-
-    window.set.map.appendChild(fragment);
   };
 
-  window.card = {
-    renderCards: renderCards
-  };
+  // 1 argument insertBefore
+  // map.insertBefore(card, mapFiltersContainer);
+  // .map__filters-container
 
 })();
