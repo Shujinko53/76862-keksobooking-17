@@ -46,6 +46,14 @@
     window.set.mapElement.appendChild(fragment);
   };
 
+  var removePins = function () {
+    var notPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    notPins.forEach(function (pin) {
+      pin.parentNode.removeChild(pin);
+    });
+
+  };
   // var getRandomNumber = function (coordinate) {
   //   var num = Math.floor(coordinate[0] + Math.random() * (coordinate[1] + 1 - coordinate[0]));
 
@@ -56,7 +64,8 @@
   // renderPins(pins);
 
   window.pin = {
-    renderPins: renderPins
+    renderPins: renderPins,
+    removePins: removePins
   };
 
 })();

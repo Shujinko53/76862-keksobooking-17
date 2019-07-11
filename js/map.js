@@ -96,6 +96,8 @@
         return false;
       }
     });
+
+    window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
 
