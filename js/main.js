@@ -35,8 +35,8 @@
     formFields: formFields,
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT: PIN_HEIGHT,
-    x: x,
-    y: y,
+    mapWidth: x,
+    mapHeight: y,
     housingFilter: housingFilter,
     cardTemplate: cardTemplate
   };
