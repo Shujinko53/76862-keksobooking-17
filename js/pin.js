@@ -54,6 +54,7 @@
     });
 
   };
+
   // var getRandomNumber = function (coordinate) {
   //   var num = Math.floor(coordinate[0] + Math.random() * (coordinate[1] + 1 - coordinate[0]));
 

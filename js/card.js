@@ -2,6 +2,8 @@
 
 (function () {
 
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+
   var createElementCard = function (newElement) {
     var card = window.set.cardTemplate.cloneNode(true);
 
@@ -19,8 +21,23 @@
     return card;
   };
 
-  // 1 argument insertBefore
-  // map.insertBefore(card, mapFiltersContainer);
+  var renderCards = function (cards) {
+    var card = document.createDocumentFragment();
+
+    for (var i = 0; i < cards.length; i++) {
+      var newElement = createElementCard(cards[i]);
+
+      card.appendChild(newElement);
+    }
+
+    window.set.map.insertBefore(card, mapFiltersContainer);
+  };
+
+  // window.set.map.insertBefore(card, mapFiltersContainer);
   // .map__filters-container
+
+  window.card = {
+    renderCards: renderCards
+  };
 
 })();

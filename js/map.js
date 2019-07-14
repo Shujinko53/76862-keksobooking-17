@@ -101,4 +101,9 @@
     window.pin.renderPins(filterPins);
   });
 
+  window.set.mapElement.addEventListener('click', function () {
+    window.backend.load(onLoad, onError);
+    window.card.renderCards(pins);
+  });
+
 })();
