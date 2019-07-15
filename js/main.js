@@ -21,6 +21,7 @@
   var formReset = document.querySelector('.ad-form__reset');
   var housingFilter = document.getElementById('housing-type');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
+  var popupClose = document.querySelector('.popup__close');
 
   window.set = {
     formReset: formReset,
@@ -38,7 +39,8 @@
     mapWidth: x,
     mapHeight: y,
     housingFilter: housingFilter,
-    cardTemplate: cardTemplate
+    cardTemplate: cardTemplate,
+    popupClose: popupClose
   };
 
 })();

@@ -26,6 +26,7 @@
 
   var createElementPin = function (newElement) {
     var pin = window.set.pinTemplate.cloneNode(true);
+
     pin.style.left = newElement.location.x - window.set.PIN_WIDTH / 2 + 'px';
     pin.style.top = newElement.location.y - window.set.PIN_HEIGHT + 'px';
     pin.querySelector('img').src = newElement.author.avatar;
@@ -35,15 +36,15 @@
   };
 
   var renderPins = function (pins) {
-    var fragment = document.createDocumentFragment();
+    var card = document.createDocumentFragment();
 
     for (var i = 0; i < pins.length; i++) {
       var newElement = createElementPin(pins[i]);
 
-      fragment.appendChild(newElement);
+      card.appendChild(newElement);
     }
 
-    window.set.mapElement.appendChild(fragment);
+    window.set.mapElement.appendChild(card);
   };
 
   var removePins = function () {
