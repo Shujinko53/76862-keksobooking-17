@@ -19,6 +19,9 @@
   var filters = document.querySelector('.map__filters');
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
+  var housingFilter = document.getElementById('housing-type');
+  var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
+  var popupClose = document.querySelector('.popup__close');
 
   window.set = {
     formReset: formReset,
@@ -33,8 +36,11 @@
     formFields: formFields,
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT: PIN_HEIGHT,
-    x: x,
-    y: y
+    mapWidth: x,
+    mapHeight: y,
+    housingFilter: housingFilter,
+    cardTemplate: cardTemplate,
+    popupClose: popupClose
   };
 
 })();

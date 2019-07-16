@@ -11,7 +11,8 @@
 
       xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
-          onLoad(xhr.response);
+          var data = xhr.response.slice(0, 5);
+          onLoad(data);
         } else {
           onError(xhr.status);
         }
@@ -30,4 +31,5 @@
       xhr.send();
     }
   };
+
 })();
