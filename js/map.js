@@ -105,8 +105,7 @@
     window.pin.renderPins(filterPins);
   });
 
-  window.set.mapElement.addEventListener('click', function (evt) {
-    evt.preventDefault();
+  window.set.mapElement.addEventListener('click', function () {
     window.backend.load(preLoad, onError);
   });
 
