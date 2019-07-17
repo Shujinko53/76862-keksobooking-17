@@ -9,10 +9,6 @@
     window.pin.renderPins(data);
   };
 
-  var preLoad = function (data) {
-    window.card.renderCards(data);
-  };
-
   var onError = function () {};
 
   window.set.mapPoint.addEventListener('mousedown', function (evt) {
@@ -103,15 +99,6 @@
 
     window.pin.removePins();
     window.pin.renderPins(filterPins);
-  });
-
-  window.set.mapElement.addEventListener('click', function () {
-    window.backend.load(preLoad, onError);
-  });
-
-  window.set.popupClose.addEventListener('click', function () {
-
-    window.set.cardTemplate.classList.add('hidden');
   });
 
 })();
