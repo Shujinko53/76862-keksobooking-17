@@ -2,6 +2,26 @@
 
 (function () {
 
+  var PIN_ACTIVE_CLASS = 'map__pin--active';
+
+  var setActiveClass = function (evt) {
+    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    allPins.forEach(function (pin) {
+      pin.classList.remove(PIN_ACTIVE_CLASS);
+    });
+
+    evt.currentTarget.classList.add(PIN_ACTIVE_CLASS);
+  };
+
+  var deleteActiveClass = function () {
+    var pin = document.querySelector('.' + PIN_ACTIVE_CLASS);
+
+    if (pin) {
+      pin.classList.remove(PIN_ACTIVE_CLASS);
+    }
+  };
+
   // var createPins = function () {
   //   var mas = [];
 
@@ -36,24 +56,38 @@
   };
 
   var renderPins = function (pins) {
-    var card = document.createDocumentFragment();
+    var map = document.createDocumentFragment();
 
-    for (var i = 0; i < pins.length; i++) {
-      var newElement = createElementPin(pins[i]);
+    pins.forEach(function (pinData) {
+      var pinElement = createElementPin(pinData);
 
-      card.appendChild(newElement);
-    }
+      pinElement.addEventListener('click', function (evt) {
+        // при клике на пин, проверить есть ли активный класс!
 
-    window.set.mapElement.appendChild(card);
+        if (!evt.currentTarget.classList.contains(PIN_ACTIVE_CLASS)) {
+          setActiveClass(evt);
+
+          window.card.removeCard();
+          window.card.renderCard(pinData);
+        }
+
+        // если его нет, то отображаем карточку и информацией
+      });
+
+      map.appendChild(pinElement);
+    });
+
+    window.set.mapElement.appendChild(map);
   };
 
   var removePins = function () {
     var notPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
-    notPins.forEach(function (pin) {
-      pin.parentNode.removeChild(pin);
-    });
-
+    if (notPins) {
+      notPins.forEach(function (pin) {
+        pin.parentNode.removeChild(pin);
+      });
+    }
   };
 
   // var getRandomNumber = function (coordinate) {
@@ -67,7 +101,8 @@
 
   window.pin = {
     renderPins: renderPins,
-    removePins: removePins
+    removePins: removePins,
+    deleteActiveClass: deleteActiveClass
   };
 
 })();
