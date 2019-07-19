@@ -11,6 +11,7 @@
 
   var createElementCard = function (newElement) {
     var card = window.set.cardTemplate.cloneNode(true);
+    var photosContainer = card.querySelector('.popup__photos');
 
     card.querySelector('img').src = newElement.author.avatar;
     card.querySelector('.popup__title').textContent = newElement.offer.title;
@@ -24,6 +25,14 @@
     card.querySelector('.popup__features').type = newElement.offer.features;
     card.querySelector('.popup__description').textContent = newElement.offer.description;
     card.querySelector('.popup__photos').src = newElement.offer.photos;
+
+    var photos = newElement.offer.photos;
+
+    photos.map(function (photo) {
+      var img = document.createElement('img');
+      img.src = photo;
+      photosContainer.appendChild(img);
+    });
 
     if (newElement.offer.type === 'bungalo') {
       card.querySelector('.popup__type').textContent = 'Бунгало';
