@@ -69,6 +69,7 @@
 
           window.card.removeCard();
           window.card.renderCard(pinData);
+          window.card.removePhoto();
         }
 
         // если его нет, то отображаем карточку и информацией
