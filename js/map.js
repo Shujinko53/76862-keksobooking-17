@@ -2,6 +2,7 @@
 (function () {
 
   var pins;
+  var markerHalfWidth = Math.round(window.set.mapPoint.offsetWidth / 2);
 
   var onLoad = function (data) {
     pins = data;
@@ -31,14 +32,32 @@
         y: moveEvt.clientY
       };
 
-      if (startCoords.y > 130 && startCoords.y < 630) {
-        window.set.mapPoint.style.top = (window.set.mapPoint.offsetTop - shift.y) + 'px';
-      }
-      if (startCoords.x > 350 && startCoords.x < 1540) {
-        window.set.mapPoint.style.left = (window.set.mapPoint.offsetLeft - shift.x) + 'px';
+      var pointX = window.set.mapPoint.offsetLeft - shift.x;
+      var pointY = window.set.mapPoint.offsetTop - shift.y;
+      var markerX = pointX + markerHalfWidth;
+      var markerY = pointY + window.set.PIN_HEIGHT;
+
+      if (markerX < window.set.mapWidth[0]) {
+        window.set.mapPoint.style.left = window.set.mapWidth - markerHalfWidth + 'px';
+        markerX = window.set.mapWidth[0];
+      } else if (markerX > window.set.mapWidth[1]) {
+        window.set.mapPoint.style.left = window.set.mapWidth[1] - markerHalfWidth + 'px';
+        markerX = window.set.mapWidth[1];
+      } else {
+        window.set.mapPoint.style.left = pointX + 'px';
       }
 
-      document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
+      if (markerY < window.set.mapHeight[0]) {
+        window.set.mapPoint.style.top = window.set.mapHeight[0] - window.set.PIN_HEIGHT + 'px';
+        markerY = window.set.mapHeight[0];
+      } else if (markerY > window.set.mapHeight[1]) {
+        window.set.mapPoint.style.top = window.set.mapHeight[1] - window.set.PIN_HEIGHT + 'px';
+        markerY = window.set.mapHeight[1];
+      } else {
+        window.set.mapPoint.style.top = pointY + 'px';
+      }
+
+      document.getElementById('address').value = markerX + ',' + markerY;
     };
 
     var onMouseUp = function (upEvt) {
@@ -77,6 +96,8 @@
         return false;
       }
     });
+
+    window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
 
