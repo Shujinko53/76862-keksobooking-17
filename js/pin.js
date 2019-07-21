@@ -22,28 +22,6 @@
     }
   };
 
-  // var createPins = function () {
-  //   var mas = [];
-
-  //   for (var i = 0; i < 8; i++) {
-  //     var item = {
-  //       author: window.set.avatars[getRandomNumber([0, window.set.avatars.length - 1])],
-  //       offer: {
-  //         title: 'Заголовок объявления',
-  //         type: window.set.types[getRandomNumber([0, window.set.types.length - 1])]
-  //       },
-  //       location: {
-  //         x: getRandomNumber(window.set.x),
-  //         y: getRandomNumber(window.set.y)
-  //       }
-  //     };
-
-  //     mas.push(item);
-  //   }
-
-  //   return mas;
-  // };
-
   var createElementPin = function (newElement) {
     var pin = window.set.pinTemplate.cloneNode(true);
 
@@ -90,15 +68,6 @@
       });
     }
   };
-
-  // var getRandomNumber = function (coordinate) {
-  //   var num = Math.floor(coordinate[0] + Math.random() * (coordinate[1] + 1 - coordinate[0]));
-
-  //   return num;
-  // };
-
-  // var pins = createPins(8);
-  // renderPins(pins);
 
   window.pin = {
     renderPins: renderPins,
