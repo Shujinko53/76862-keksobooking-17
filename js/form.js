@@ -33,6 +33,19 @@
     }
   };
 
+  window.autoFillOutTime = function () {
+    var timeOut = document.getElementById('timeout').value;
+    var timeIn = document.getElementById('timein');
+
+    if (timeOut === '12:00') {
+      timeIn.value = '12:00';
+    } else if (timeOut === '13:00') {
+      timeIn.value = '13:00';
+    } else if (timeOut === '14:00') {
+      timeIn.value = '14:00';
+    }
+  };
+
   window.set.formReset.addEventListener('click', function () {
     window.set.map.classList.add('map--faded');
     window.set.form.classList.add('ad-form--disabled');

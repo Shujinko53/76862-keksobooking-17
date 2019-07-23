@@ -76,8 +76,6 @@
         window.set.filtersSelects[j].disabled = false;
       }
 
-      document.getElementById('address').value = startCoords.x + ',' + startCoords.y;
-
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
