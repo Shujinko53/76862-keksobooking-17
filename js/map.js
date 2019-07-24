@@ -84,8 +84,8 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  window.set.housingFilter.addEventListener('change', function () {
-    var filterValue = window.set.housingFilter.value;
+  window.set.filterType.addEventListener('change', function () {
+    var filterValue = window.set.filterType.value;
 
     var filterPins = pins.filter(function (item) {
       if (item.offer.type === filterValue) {
@@ -99,11 +99,11 @@
     window.pin.renderPins(filterPins);
   });
 
-  window.set.housingFilterRooms.addEventListener('change', function () {
-    var filterValue = window.set.housingFilterRooms.value;
+  window.set.filterPrice.addEventListener('change', function () {
+    var filterValue = window.set.filterPrice.value;
 
     var filterPins = pins.filter(function (item) {
-      if (item.offer.rooms === filterValue) {
+      if (item.offer.price === filterValue) {
         return item;
       } else {
         return false;
@@ -114,11 +114,26 @@
     window.pin.renderPins(filterPins);
   });
 
-  window.set.housingFilterGuests.addEventListener('change', function () {
-    var filterValue = window.set.housingFilterGuests.value;
+  window.set.filterRooms.addEventListener('change', function () {
+    var filterValue = window.set.filterRooms.value;
 
     var filterPins = pins.filter(function (item) {
-      if (item.offer.guests === filterValue) {
+      if (item.offer.rooms == filterValue) {
+        return item;
+      } else {
+        return false;
+      }
+    });
+
+    window.pin.removePins();
+    window.pin.renderPins(filterPins);
+  });
+
+  window.set.filterGuests.addEventListener('change', function () {
+    var filterValue = window.set.filterGuests.value;
+
+    var filterPins = pins.filter(function (item) {
+      if (item.offer.guests == filterValue) {
         return item;
       } else {
         return false;

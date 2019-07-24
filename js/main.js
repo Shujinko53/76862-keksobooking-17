@@ -19,9 +19,10 @@
   var filters = document.querySelector('.map__filters');
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
-  var housingFilter = document.getElementById('housing-type');
-  var housingFilterGuests = document.getElementById('housing-guests');
-  var housingFilterRooms = document.getElementById('housing-rooms');
+  var filterType = document.getElementById('housing-type');
+  var filterPrice = document.getElementById('housing-price');
+  var filterGuests = document.getElementById('housing-guests');
+  var filterRooms = document.getElementById('housing-rooms');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
   var popupClose = document.querySelector('.popup__close');
 
@@ -40,9 +41,10 @@
     PIN_HEIGHT: PIN_HEIGHT,
     mapWidth: x,
     mapHeight: y,
-    housingFilter: housingFilter,
-    housingFilterGuests: housingFilterGuests,
-    housingFilterRooms: housingFilterRooms,
+    filterType: filterType,
+    filterPrice: filterPrice,
+    filterGuests: filterGuests,
+    filterRooms: filterRooms,
     cardTemplate: cardTemplate,
     popupClose: popupClose
   };
