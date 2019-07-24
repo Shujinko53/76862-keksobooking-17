@@ -99,4 +99,34 @@
     window.pin.renderPins(filterPins);
   });
 
+  window.set.housingFilterRooms.addEventListener('change', function () {
+    var filterValue = window.set.housingFilterRooms.value;
+
+    var filterPins = pins.filter(function (item) {
+      if (item.offer.rooms === filterValue) {
+        return item;
+      } else {
+        return false;
+      }
+    });
+
+    window.pin.removePins();
+    window.pin.renderPins(filterPins);
+  });
+
+  window.set.housingFilterGuests.addEventListener('change', function () {
+    var filterValue = window.set.housingFilterGuests.value;
+
+    var filterPins = pins.filter(function (item) {
+      if (item.offer.guests === filterValue) {
+        return item;
+      } else {
+        return false;
+      }
+    });
+
+    window.pin.removePins();
+    window.pin.renderPins(filterPins);
+  });
+
 })();

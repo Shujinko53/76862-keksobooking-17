@@ -49,6 +49,8 @@
   window.set.formReset.addEventListener('click', function () {
     window.set.map.classList.add('map--faded');
     window.set.form.classList.add('ad-form--disabled');
+    window.card.removeCard();
+    window.pin.removePins();
   });
 
 })();

@@ -20,6 +20,8 @@
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
   var housingFilter = document.getElementById('housing-type');
+  var housingFilterGuests = document.getElementById('housing-guests');
+  var housingFilterRooms = document.getElementById('housing-rooms');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
   var popupClose = document.querySelector('.popup__close');
 
@@ -39,6 +41,8 @@
     mapWidth: x,
     mapHeight: y,
     housingFilter: housingFilter,
+    housingFilterGuests: housingFilterGuests,
+    housingFilterRooms: housingFilterRooms,
     cardTemplate: cardTemplate,
     popupClose: popupClose
   };
