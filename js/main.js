@@ -10,7 +10,10 @@
   var x = [0, mapElement.offsetWidth];
   var y = [130, 630];
   var map = document.querySelector('.map');
+  var mapFilters = document.querySelector('.map__filters-container');
   var mapPoint = mapElement.querySelector('.map__pin--main');
+  var initLeft = mapPoint.style.left;
+  var initTop = mapPoint.style.top;
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
@@ -30,7 +33,10 @@
   window.set = {
     formReset: formReset,
     mapPoint: mapPoint,
+    initLeft: initLeft,
+    initTop: initTop,
     map: map,
+    mapFilters: mapFilters,
     mapElement: mapElement,
     form: form,
     filtersSelects: filtersSelects,
@@ -48,7 +54,14 @@
     filterGuests: filterGuests,
     filterFeatures: filterFeatures,
     cardTemplate: cardTemplate,
-    popupClose: popupClose
+    popupClose: popupClose,
+
+    /* Добавление атрибута элементам коллекции */
+    setAttributeAll: function (elements, attribute, value) {
+      elements.forEach(function (elem) {
+        elem.setAttribute(attribute, value || '');
+      });
+    }
   };
 
 })();

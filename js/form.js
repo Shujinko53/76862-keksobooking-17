@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var adForm = document.querySelector('.ad-form');
+  var adFormGroups = adForm.querySelectorAll('fieldset');
 
   window.autoFill = function () {
     var x = document.getElementById('type').value;
@@ -49,8 +51,12 @@
   window.set.formReset.addEventListener('click', function () {
     window.set.map.classList.add('map--faded');
     window.set.form.classList.add('ad-form--disabled');
+    window.set.mapFilters.classList.add('hidden');
     window.card.removeCard();
     window.pin.removePins();
+    window.set.mapPoint.style.left = window.set.initLeft;
+    window.set.mapPoint.style.top = window.set.initTop;
+    window.set.setAttributeAll(adFormGroups, 'disabled');
   });
 
 })();
