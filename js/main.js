@@ -21,8 +21,9 @@
   var formReset = document.querySelector('.ad-form__reset');
   var filterType = document.getElementById('housing-type');
   var filterPrice = document.getElementById('housing-price');
-  var filterGuests = document.getElementById('housing-guests');
   var filterRooms = document.getElementById('housing-rooms');
+  var filterGuests = document.getElementById('housing-guests');
+  var filterFeatures = document.getElementById('housing-features');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
   var popupClose = document.querySelector('.popup__close');
 
@@ -43,8 +44,9 @@
     mapHeight: y,
     filterType: filterType,
     filterPrice: filterPrice,
-    filterGuests: filterGuests,
     filterRooms: filterRooms,
+    filterGuests: filterGuests,
+    filterFeatures: filterFeatures,
     cardTemplate: cardTemplate,
     popupClose: popupClose
   };
