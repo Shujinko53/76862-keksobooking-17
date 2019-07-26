@@ -80,6 +80,8 @@
       document.removeEventListener('mouseup', onMouseUp);
     };
 
+    window.form.roomNumberChangeHandler();
+    window.set.mapFilters.classList.remove('hidden');
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
@@ -95,6 +97,7 @@
       }
     });
 
+    window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
@@ -110,6 +113,7 @@
       }
     });
 
+    window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
@@ -125,6 +129,7 @@
       }
     });
 
+    window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
@@ -140,6 +145,7 @@
       }
     });
 
+    window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filterPins);
   });
