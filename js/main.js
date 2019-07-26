@@ -26,7 +26,7 @@
   var filterPrice = document.getElementById('housing-price');
   var filterRooms = document.getElementById('housing-rooms');
   var filterGuests = document.getElementById('housing-guests');
-  var filterFeatures = document.getElementById('housing-features');
+  var filterFeatures = filters.querySelectorAll('input');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
   var popupClose = document.querySelector('.popup__close');
 
