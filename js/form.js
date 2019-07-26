@@ -5,6 +5,7 @@
   var adFormGroups = adForm.querySelectorAll('fieldset');
   var address = document.querySelector('#address');
 
+
   var addPinCoords = function () {
     address.value = window.pin.getCoords(window.set.mapPoint);
   };
