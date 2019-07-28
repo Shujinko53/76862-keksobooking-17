@@ -4,6 +4,8 @@
   var adForm = document.querySelector('.ad-form');
   var adFormGroups = adForm.querySelectorAll('fieldset');
   var address = document.querySelector('#address');
+  var houseType = document.querySelector('#type');
+  var priceField = document.querySelector('#price');
 
   var addPinCoords = function () {
     address.value = window.pin.getCoords(window.set.mapPoint);
@@ -11,23 +13,29 @@
 
   addPinCoords();
 
-  window.autoFill = function () {
-    var x = document.getElementById('type').value;
-    var price = document.getElementById('price');
-    if (x === 'bungalo') {
-      price.min = '0';
-      price.placeholder = 'от 0';
-    } else if (x === 'flat') {
-      price.min = '1000';
-      price.placeholder = 'от 1000';
-    } else if (x === 'house') {
-      price.min = '5000';
-      price.placeholder = 'от 5000';
-    } else if (x === 'palace') {
-      price.min = '10000';
-      price.placeholder = 'от 10000';
-    }
+  var houseTypeChangeHandler = function () {
+    var price = window.data.HouseMinPrices[houseType.value.toUpperCase()];
+    priceField.min = parseInt(price.replace(/ /g, ''), 10);
+    priceField.placeholder = price;
   };
+
+  // window.autoFill = function () {
+  //   var x = document.querySelector('#type').value;
+  //   var price = document.querySelector('#price');
+  //   if (x === 'bungalo') {
+  //     price.min = '0';
+  //     price.placeholder = 'от 0';
+  //   } else if (x === 'flat') {
+  //     price.min = '1000';
+  //     price.placeholder = 'от 1000';
+  //   } else if (x === 'house') {
+  //     price.min = '5000';
+  //     price.placeholder = 'от 5000';
+  //   } else if (x === 'palace') {
+  //     price.min = '10000';
+  //     price.placeholder = 'от 10000';
+  //   }
+  // };
 
   /* Соответствие комнат и мест */
   var roomLimits = {
@@ -63,9 +71,6 @@
     }
   };
 
-  roomNumber.addEventListener('change', roomNumberChangeHandler);
-  capacity.addEventListener('change', capacityChangeHandler);
-
   /* Соответствие времени въезда и выезда */
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
@@ -79,6 +84,12 @@
   timeOut.addEventListener('change', function () {
     syncValues(timeIn, timeOut);
   });
+
+  window.utils.setAttributeAll(adFormGroups, 'disabled');
+
+  roomNumber.addEventListener('change', roomNumberChangeHandler);
+  capacity.addEventListener('change', capacityChangeHandler);
+  houseType.addEventListener('change', houseTypeChangeHandler);
 
   /* Сброс формы по кнопке reset*/
   window.set.formReset.addEventListener('click', function () {
