@@ -3,36 +3,8 @@
 (function () {
   var adForm = document.querySelector('.ad-form');
   var adFormGroups = adForm.querySelectorAll('fieldset');
-  var address = document.querySelector('#address');
-  var houseType = document.querySelector('#type');
-  var priceField = document.querySelector('#price');
-
-  var addPinCoords = function () {
-    address.value = window.utils.getCoords(window.set.mapPoint);
-  };
-
-  addPinCoords();
-
-  /* Неактивное состояние */
-  var setInactiveState = function () {
-    window.set.map.classList.add('map--faded');
-    window.set.form.classList.add('ad-form--disabled');
-    window.set.mapFilters.classList.add('hidden');
-    window.card.removeCard();
-    window.pin.removePins();
-    window.set.mapPoint.style.left = window.set.initLeft;
-    window.set.mapPoint.style.top = window.set.initTop;
-
-    window.set.setAttributeAll(adFormGroups, 'disabled');
-    window.set.filtersSelects.forEach(function (elem) {
-      elem.value = 'any';
-    });
-    window.set.filterFeatures.forEach(function (elem) {
-      elem.checked = false;
-    });
-    window.set.form.reset();
-    addPinCoords();
-  };
+  var houseType = adForm.querySelector('#type');
+  var priceField = adForm.querySelector('#price');
 
   var houseTypeChangeHandler = function () {
     var price = window.data.HouseMinPrices[houseType.value.toUpperCase()];
@@ -40,18 +12,16 @@
     priceField.placeholder = price;
   };
 
-  /* Соответствие комнат и мест */
   var roomLimits = {
     1: ['1'],
     2: ['1', '2'],
     3: ['1', '2', '3'],
     100: ['0']
   };
-
   var roomOptions;
-  var roomNumber = document.querySelector('#room_number');
-  var capacity = document.querySelector('#capacity');
-  var capacityOptions = document.querySelectorAll('#capacity option');
+  var roomNumber = adForm.querySelector('#room_number');
+  var capacity = adForm.querySelector('#capacity');
+  var capacityOptions = adForm.querySelectorAll('#capacity option');
 
   var roomNumberChangeHandler = function () {
     roomOptions = roomLimits[roomNumber.value];
@@ -74,13 +44,33 @@
     }
   };
 
-  /* Соответствие времени въезда и выезда */
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
+  var timeIn = adForm.querySelector('#timein');
+  var timeOut = adForm.querySelector('#timeout');
   var syncValues = function (field1, field2) {
     field1.value = field2.value;
   };
 
+  /* Проверка на валидность */
+  var submitBtn = adForm.querySelector('.ad-form__submit');
+  var checkList = adForm.querySelectorAll('.ad-form input, .ad-form select');
+  var invalidBorder = '0 0 2px 2px #ff6547';
+  var addInvalidListener = function (elem) {
+    var elemChangeHandler = function () {
+      elem.style.boxShadow = elem.validity.valid ? 'none' : invalidBorder;
+    };
+    elem.addEventListener('invalid', elemChangeHandler);
+    elem.addEventListener('input', elemChangeHandler);
+    if (elem.tagName === 'SELECT') {
+      elem.addEventListener('change', elemChangeHandler);
+    }
+  };
+
+
+  window.utils.setAttributeAll(adFormGroups, 'disabled');
+
+  houseType.addEventListener('change', houseTypeChangeHandler);
+  roomNumber.addEventListener('change', roomNumberChangeHandler);
+  capacity.addEventListener('change', capacityChangeHandler);
   timeIn.addEventListener('change', function () {
     syncValues(timeOut, timeIn);
   });
@@ -88,20 +78,18 @@
     syncValues(timeIn, timeOut);
   });
 
-  window.utils.setAttributeAll(adFormGroups, 'disabled');
-
-  roomNumber.addEventListener('change', roomNumberChangeHandler);
-  capacity.addEventListener('change', capacityChangeHandler);
-  houseType.addEventListener('change', houseTypeChangeHandler);
-
-  /* Сброс формы по кнопке reset*/
-  window.set.formReset.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    setInactiveState();
+  checkList.forEach(function (elem) {
+    addInvalidListener(elem);
   });
 
-  window.form = {
-    roomNumberChangeHandler: roomNumberChangeHandler
-  };
 
+  window.form = {
+    container: adForm,
+    address: adForm.querySelector('#address'),
+    adGroups: adFormGroups,
+    houseTypeChangeHandler: houseTypeChangeHandler,
+    roomNumberChangeHandler: roomNumberChangeHandler,
+    checkList: checkList,
+    submitBtn: submitBtn
+  };
 })();

@@ -2,78 +2,96 @@
 
 (function () {
 
-  var PIN_ACTIVE_CLASS = 'map__pin--active';
+  var map = document.querySelector('.map');
+  var templateContent = document.querySelector('template').content;
+  var mapCard;
+  var mapCardClose;
+  var mapCardTemplate = templateContent.querySelector('.map__card');
+  var pinsBlock = map.querySelector('.map__pins');
+  var pinsSelector = '.map__pin:not(.map__pin--main)';
+  var pins = pinsBlock.querySelectorAll(pinsSelector);
+  var wasFirstRender = false;
 
-  var setActiveClass = function (evt) {
-    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-    allPins.forEach(function (pin) {
-      pin.classList.remove(PIN_ACTIVE_CLASS);
-    });
-
-    evt.currentTarget.classList.add(PIN_ACTIVE_CLASS);
-  };
-
-  var deleteActiveClass = function () {
-    var pin = document.querySelector('.' + PIN_ACTIVE_CLASS);
-
-    if (pin) {
-      pin.classList.remove(PIN_ACTIVE_CLASS);
-    }
-  };
-
-  var createElementPin = function (newElement) {
-    var pin = window.set.pinTemplate.cloneNode(true);
-
-    pin.style.left = newElement.location.x - window.set.PIN_WIDTH / 2 + 'px';
-    pin.style.top = newElement.location.y - window.set.PIN_HEIGHT + 'px';
-    pin.querySelector('img').src = newElement.author.avatar;
-    pin.querySelector('img').alt = newElement.offer.title;
-
+  var renderPin = function (data, template) {
+    var pin = template.cloneNode(true);
+    var img = pin.querySelector('img');
+    pin.style.left = data.location.x + 'px';
+    pin.style.top = data.location.y + 'px';
+    img.src = data.author.avatar;
+    img.alt = data.offer.title;
     return pin;
   };
 
-  var renderPins = function (pins) {
-    var map = document.createDocumentFragment();
-
-    pins.forEach(function (pinData) {
-      var pinElement = createElementPin(pinData);
-
-      pinElement.addEventListener('click', function (evt) {
-        // при клике на пин, проверить есть ли активный класс!
-
-        if (!evt.currentTarget.classList.contains(PIN_ACTIVE_CLASS)) {
-          setActiveClass(evt);
-
-          window.card.removeCard();
-          window.card.renderCard(pinData);
-          window.card.removePhoto();
-        }
-
-        // если его нет, то отображаем карточку c информацией
-      });
-
-      map.appendChild(pinElement);
+  var setPinsClass = function (target) {
+    pins.forEach(function (elem) {
+      elem.className = 'map__pin' + (target && elem === target ? ' map__pin--active' : '');
     });
-
-    window.set.mapElement.appendChild(map);
   };
 
-  var removePins = function () {
-    var notPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-    if (notPins) {
-      notPins.forEach(function (pin) {
-        pin.parentNode.removeChild(pin);
-      });
+  var closePopupClickHandler = function () {
+    mapCard.classList.add('hidden');
+    setPinsClass();
+  };
+  var closePopupKeydownHandler = function (evt) {
+    if (window.utils.isPressEsc(evt)) {
+      closePopupClickHandler();
     }
   };
 
-
-  window.pin = {
-    renderPins: renderPins,
-    removePins: removePins,
-    deleteActiveClass: deleteActiveClass,
+  /* Показ объявлений по клику на метки */
+  var addPinListener = function (data, target) {
+    setPinsClass(target);
+    mapCard.innerHTML = window.renderAnnouncement(data, mapCardTemplate).innerHTML;
+    mapCard.classList.remove('hidden');
+    mapCard.querySelector('.popup__close').addEventListener('click', closePopupClickHandler);
   };
 
+  window.pin = {
+
+    render: function (workData) {
+
+      if (wasFirstRender) {
+        mapCard.remove();
+      }
+
+      pins.forEach(function (elem) {
+        pinsBlock.removeChild(elem);
+      });
+
+      var pinsFragment = document.createDocumentFragment();
+      workData.forEach(function (elem) {
+        pinsFragment.appendChild(renderPin(elem, templateContent.querySelector('.map__pin')));
+      });
+      pinsBlock.appendChild(pinsFragment);
+      pins = pinsBlock.querySelectorAll(pinsSelector);
+
+      if (!wasFirstRender) {
+        window.utils.addClassAll(pins, 'hidden');
+      }
+
+      map.insertBefore(window.renderAnnouncement(workData[0], mapCardTemplate), map.querySelector('.map__filters-container'));
+      mapCard = map.querySelector('.map__card');
+      wasFirstRender = true;
+      mapCardClose = mapCard.querySelector('.popup__close');
+
+      closePopupClickHandler();
+    },
+
+    activate: function () {
+      mapCardClose.addEventListener('click', closePopupClickHandler);
+      document.addEventListener('keydown', closePopupKeydownHandler);
+      window.utils.removeClassAll(pins, 'hidden');
+    },
+
+    deactivate: function () {
+      closePopupClickHandler();
+      mapCardClose.removeEventListener('click', closePopupClickHandler);
+      document.removeEventListener('keydown', closePopupKeydownHandler);
+      window.utils.addClassAll(pins, 'hidden');
+    },
+
+    closePopupClickHandler: closePopupClickHandler,
+    addPinListener: addPinListener,
+    map: map
+  };
 })();

@@ -1,35 +1,54 @@
 'use strict';
 
 (function () {
-  window.backend = {
+  var xhrListener = function (loadHandler, errorHandler, URL, method, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
 
-    load: function (onLoad, onError) {
-      var xhr = new XMLHttpRequest();
-      var URL = 'https://js.dump.academy/keksobooking/data';
+    xhr.addEventListener('load', function () {
+      var error;
+      switch (xhr.status) {
+        case 200:
+          loadHandler(xhr.response);
+          break;
+        case 400:
+          error = 'Неверный запрос';
+          break;
+        case 403:
+          error = 'Доступ запрещён!';
+          break;
+        case 404:
+          error = 'Ничего не найдено';
+          break;
+        case 500:
+          error = 'Ошибка сервера';
+          break;
+        default:
+          error = 'Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText;
+      }
+      if (error) {
+        errorHandler(error);
+      }
+    });
+    xhr.addEventListener('error', function () {
+      errorHandler('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', function () {
+      errorHandler('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    });
 
-      xhr.responseType = 'json';
-
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          var data = xhr.response.slice(0, 5);
-          onLoad(data);
-        } else {
-          onError(xhr.status);
-        }
-      });
-
-      xhr.addEventListener('error', function () {
-        onError('Ошибка соединения');
-      });
-
-      xhr.addEventListener('timeout', function () {
-        onError('Запрос не успел выполниться' + xhr.timeout);
-      });
-
-      xhr.open('GET', URL);
-
-      xhr.send();
-    }
+    xhr.open(method, URL);
+    xhr.send(data);
   };
 
+
+  window.backend = {
+    load: function (loadHandler, errorHandler) {
+      xhrListener(loadHandler, errorHandler, window.data.Url.LOAD, 'GET', null);
+    },
+
+    save: function (data, loadHandler, errorHandler) {
+      xhrListener(loadHandler, errorHandler, window.data.Url.SAVE, 'POST', data);
+    }
+  };
 })();
