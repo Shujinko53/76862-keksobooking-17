@@ -26,7 +26,7 @@
       BUNGALO: '0',
       FLAT: '1 000',
       HOUSE: '5 000',
-      PALACE: '1 000 000'
+      PALACE: '10 000'
     },
     PINS_LIMIT: 5,
     ERROR_STYLE: 'position: fixed; top: 0; left: 0; z-index: 2; box-sizing: border-box; width: 100%; height: 100%; overflow: auto; padding-top: 300px; text-align: center; vertical-align: middle; background-color: rgba(0, 0, 0, 0.8)',

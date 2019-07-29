@@ -50,7 +50,7 @@
           window.card.removePhoto();
         }
 
-        // если его нет, то отображаем карточку и информацией
+        // если его нет, то отображаем карточку c информацией
       });
 
       map.appendChild(pinElement);
@@ -74,14 +74,6 @@
     renderPins: renderPins,
     removePins: removePins,
     deleteActiveClass: deleteActiveClass,
-
-    /* Получение координат элемента */
-    getCoords: function (element, posY) {
-      var coordX = Math.floor(parseInt(element.style.left, 10) + element.clientWidth / 2);
-      var y = element.clientHeight;
-      var coordY = Math.floor(parseInt(element.style.top, 10) + (posY === 'bottom' ? y : y / 2));
-      return coordX + ', ' + coordY;
-    }
   };
 
 })();

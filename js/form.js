@@ -8,34 +8,37 @@
   var priceField = document.querySelector('#price');
 
   var addPinCoords = function () {
-    address.value = window.pin.getCoords(window.set.mapPoint);
+    address.value = window.utils.getCoords(window.set.mapPoint);
   };
 
   addPinCoords();
+
+  /* Неактивное состояние */
+  var setInactiveState = function () {
+    window.set.map.classList.add('map--faded');
+    window.set.form.classList.add('ad-form--disabled');
+    window.set.mapFilters.classList.add('hidden');
+    window.card.removeCard();
+    window.pin.removePins();
+    window.set.mapPoint.style.left = window.set.initLeft;
+    window.set.mapPoint.style.top = window.set.initTop;
+
+    window.set.setAttributeAll(adFormGroups, 'disabled');
+    window.set.filtersSelects.forEach(function (elem) {
+      elem.value = 'any';
+    });
+    window.set.filterFeatures.forEach(function (elem) {
+      elem.checked = false;
+    });
+    window.set.form.reset();
+    addPinCoords();
+  };
 
   var houseTypeChangeHandler = function () {
     var price = window.data.HouseMinPrices[houseType.value.toUpperCase()];
     priceField.min = parseInt(price.replace(/ /g, ''), 10);
     priceField.placeholder = price;
   };
-
-  // window.autoFill = function () {
-  //   var x = document.querySelector('#type').value;
-  //   var price = document.querySelector('#price');
-  //   if (x === 'bungalo') {
-  //     price.min = '0';
-  //     price.placeholder = 'от 0';
-  //   } else if (x === 'flat') {
-  //     price.min = '1000';
-  //     price.placeholder = 'от 1000';
-  //   } else if (x === 'house') {
-  //     price.min = '5000';
-  //     price.placeholder = 'от 5000';
-  //   } else if (x === 'palace') {
-  //     price.min = '10000';
-  //     price.placeholder = 'от 10000';
-  //   }
-  // };
 
   /* Соответствие комнат и мест */
   var roomLimits = {
@@ -92,24 +95,9 @@
   houseType.addEventListener('change', houseTypeChangeHandler);
 
   /* Сброс формы по кнопке reset*/
-  window.set.formReset.addEventListener('click', function () {
-    window.set.map.classList.add('map--faded');
-    window.set.form.classList.add('ad-form--disabled');
-    window.set.mapFilters.classList.add('hidden');
-    window.card.removeCard();
-    window.pin.removePins();
-    window.set.mapPoint.style.left = window.set.initLeft;
-    window.set.mapPoint.style.top = window.set.initTop;
-
-    window.set.setAttributeAll(adFormGroups, 'disabled');
-    window.set.filtersSelects.forEach(function (elem) {
-      elem.value = 'any';
-    });
-    window.set.filterFeatures.forEach(function (elem) {
-      elem.checked = false;
-    });
-    window.set.form.reset();
-    addPinCoords();
+  window.set.formReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    setInactiveState();
   });
 
   window.form = {

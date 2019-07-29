@@ -80,8 +80,8 @@
       document.removeEventListener('mouseup', onMouseUp);
     };
 
-    window.form.roomNumberChangeHandler();
     window.set.mapFilters.classList.remove('hidden');
+    window.form.roomNumberChangeHandler();
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
@@ -90,23 +90,9 @@
     var filterValue = window.set.filterType.value;
 
     var filterPins = pins.filter(function (item) {
-      if (item.offer.type === filterValue) {
+      if (item.offer.type == filterValue) {
         return item;
-      } else {
-        return false;
-      }
-    });
-
-    window.card.removeCard();
-    window.pin.removePins();
-    window.pin.renderPins(filterPins);
-  });
-
-  window.set.filterPrice.addEventListener('change', function () {
-    var filterValue = window.set.filterPrice.value;
-
-    var filterPins = pins.filter(function (item) {
-      if (item.offer.price === filterValue) {
+      } else if (filterValue === 'any') {
         return item;
       } else {
         return false;
@@ -124,6 +110,8 @@
     var filterPins = pins.filter(function (item) {
       if (item.offer.rooms == filterValue) {
         return item;
+      } else if (filterValue === 'any') {
+        return item;
       } else {
         return false;
       }
@@ -140,6 +128,8 @@
     var filterPins = pins.filter(function (item) {
       if (item.offer.guests == filterValue) {
         return item;
+      } else if (filterValue === 'any') {
+        return item;
       } else {
         return false;
       }
@@ -148,6 +138,14 @@
     window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filterPins);
+  });
+
+  var tempSuccess = document.querySelector('#success');
+  var submitButton = document.querySelector('.ad-form__submit');
+  var main = document.querySelector('.main');
+
+  submitButton.addEventListener('click', function () {
+    main.appendChild(tempSuccess);
   });
 
 })();

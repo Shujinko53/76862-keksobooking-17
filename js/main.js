@@ -22,10 +22,10 @@
   var filters = document.querySelector('.map__filters');
   var filtersSelects = filters.querySelectorAll('select');
   var formReset = document.querySelector('.ad-form__reset');
-  var filterType = document.getElementById('housing-type');
-  var filterPrice = document.getElementById('housing-price');
-  var filterRooms = document.getElementById('housing-rooms');
-  var filterGuests = document.getElementById('housing-guests');
+  var filterType = document.querySelector('#housing-type');
+  var filterPrice = document.querySelector('#housing-price');
+  var filterRooms = document.querySelector('#housing-rooms');
+  var filterGuests = document.querySelector('#housing-guests');
   var filterFeatures = filters.querySelectorAll('input');
   var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
   var popupClose = document.querySelector('.popup__close');
