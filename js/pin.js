@@ -80,7 +80,7 @@
 
       closePopupClickHandler();
 
-      return data;
+      return workData;
     },
 
     activate: function () {
