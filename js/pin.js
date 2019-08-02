@@ -79,6 +79,8 @@
       mapCardClose = mapCard.querySelector('.popup__close');
 
       closePopupClickHandler();
+
+      return data;
     },
 
     activate: function () {
