@@ -65,6 +65,10 @@
       pinsBlock.appendChild(pinsFragment);
       pins = pinsBlock.querySelectorAll(pinsSelector);
 
+      if (!Object.entries(workData).length) {
+        return false;
+      }
+
       if (!wasFirstRender) {
         window.utils.addClassAll(pins, 'hidden');
       }
@@ -75,6 +79,8 @@
       mapCardClose = mapCard.querySelector('.popup__close');
 
       closePopupClickHandler();
+
+      return workData;
     },
 
     activate: function () {
