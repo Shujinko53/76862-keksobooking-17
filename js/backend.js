@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+  var HTTP_OK = 200;
+  var HTTP_BAD_REGUEST = 400;
+  var HTTP_UNAUTHORIZED = 401;
+  var HTTP_NOT_FOUND = 404;
+  var HTTP_INTERNAL_ERROR = 500;
+
   var xhrListener = function (loadHandler, errorHandler, URL, method, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -8,20 +14,20 @@
     xhr.addEventListener('load', function () {
       var error;
       switch (xhr.status) {
-        case 200:
+        case HTTP_OK:
           loadHandler(xhr.response);
           break;
-        case 400:
+        case HTTP_BAD_REGUEST:
           error = 'Неверный запрос';
           break;
-        case 403:
-          error = 'Доступ запрещён!';
+        case HTTP_UNAUTHORIZED:
+          error = 'Пользователь не авторизован';
           break;
-        case 404:
+        case HTTP_NOT_FOUND:
           error = 'Ничего не найдено';
           break;
-        case 500:
-          error = 'Ошибка сервера';
+        case HTTP_INTERNAL_ERROR:
+          error = 'Внутренняя ошибка сервера';
           break;
         default:
           error = 'Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText;
