@@ -29,23 +29,23 @@
   };
   var doFilter = function (data, options) {
     var doFilterFeature = function (feature, featureData) {
-      return options.features.indexOf(feature) > -1
-        ? featureData.offer.features.indexOf(feature) > -1 : featureData;
+      return options.features.indexOf(feature) > -1 ?
+        featureData.offer.features.indexOf(feature) > -1 : featureData;
     };
     return data.filter(function (elem) {
-      return options.type.indexOf(elem.offer.type) > -1
-        && elem.offer.price >= options.price.min
-        && elem.offer.price < options.price.max
-        && (options.rooms < 0
-          ? (elem.offer.rooms >= 0) : (elem.offer.rooms === options.rooms))
-        && (options.guests < 0
-          ? (elem.offer.guests >= 0) : (elem.offer.guests === options.guests))
-        && doFilterFeature('wifi', elem)
-        && doFilterFeature('dishwasher', elem)
-        && doFilterFeature('parking', elem)
-        && doFilterFeature('washer', elem)
-        && doFilterFeature('elevator', elem)
-        && doFilterFeature('conditioner', elem);
+      return options.type.indexOf(elem.offer.type) > -1 &&
+        elem.offer.price >= options.price.min &&
+        elem.offer.price < options.price.max &&
+        (options.rooms < 0 ?
+          (elem.offer.rooms >= 0) : (elem.offer.rooms === options.rooms)) &&
+        (options.guests < 0 ?
+          (elem.offer.guests >= 0) : (elem.offer.guests === options.guests)) &&
+        doFilterFeature('wifi', elem) &&
+        doFilterFeature('dishwasher', elem) &&
+        doFilterFeature('parking', elem) &&
+        doFilterFeature('washer', elem) &&
+        doFilterFeature('elevator', elem) &&
+        doFilterFeature('conditioner', elem);
     }).slice(0, window.data.PINS_LIMIT);
   };
 
@@ -128,8 +128,8 @@
     var price = filterPrice.value;
 
     options.type = (filterHouse.value === 'any') ? houses : [filterHouse.value];
-    options.price.min = price === 'middle' || price === 'high'
-      ? window.data.Price[price.toUpperCase()] : 0;
+    options.price.min = price === 'middle' || price === 'high' ?
+      window.data.Price[price.toUpperCase()] : 0;
     options.price.max = window.data.Price[valueToMax[price] || 'MAX'];
     options.rooms = chooseAnyOrDefinite(filterRooms.value);
     options.guests = chooseAnyOrDefinite(filterGuests.value);
